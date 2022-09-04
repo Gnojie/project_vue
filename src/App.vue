@@ -1,9 +1,14 @@
 <template>
-  <div id="app">
+  <div>
+    <span>全选:</span>
+    <input type="checkbox" v-model="isall">
+    <button>反选</button>
     <ul>
-      <li v-for="item in myArr" :key="item">{{ item }}</li>
+      <li v-for="item in arr" :key="item.name">
+        <input type="checkbox" v-model="item.c">
+        <span >{{item.name}}</span>
+      </li>
     </ul>
-    <button @click="btn">走一走</button>
   </div>
 </template>
 
@@ -11,17 +16,31 @@
 export default {
   data() {
     return {
-      myArr: ["帅哥", "美女", "程序猿"],
+      arr: [
+        {
+          name: "猪八戒",
+          c: false,
+        },
+        {
+          name: "孙悟空",
+          c: false,
+        },
+        {
+          name: "唐僧",
+          c: false,
+        },
+        {
+          name: "白龙马",
+          c: false,
+        },
+      ],
     };
   },
-  methods: {
-    btn() {
-      // reverse方法可以使得 v-for更新
-      // this.myArr = this.myArr.reverse()
-      // slice方法不会造成 v-for的更新
-
-      this.myArr = this.myArr.slice(2)
-    },
-  },
+  computed:{
+    isall(){
+      // 口诀 查找数组中不符合条件的直接原地返回false
+       return this.arr.every(obj => {return obj.c === true})
+    }
+  }
 };
 </script>
